@@ -16,7 +16,6 @@ spec:
       releaseName: argo-cd
       valueFiles:
       - ../../../clusters/prometheus/applications/argo-cd/values.yaml
-      version: v2
 
   destination:
     server: https://kubernetes.default.svc
