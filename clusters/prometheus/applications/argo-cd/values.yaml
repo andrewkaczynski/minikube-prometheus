@@ -43,6 +43,7 @@ argo-cd:
     secret:
       # password: argocd
       argocdServerAdminPassword: "$2a$10$oIo8Skj03KdhtjUmnhBIC.p.foOiiEmSB24Gm.Qxwte6rdT6V6/Iq"
+      argocdServerAdminPasswordMtime: "2022-07-22T01:00:00Z"
 
   applicationSet:
     enabled: false
