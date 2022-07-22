@@ -13,7 +13,7 @@ spec:
     path: charts/argo-cd/4.10.0
 
     helm:
-      releaseName: argo-cd
+      releaseName: argocd
       valueFiles:
       - ../../../clusters/prometheus/applications/argo-cd/values.yaml
 
