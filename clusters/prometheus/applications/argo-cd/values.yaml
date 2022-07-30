@@ -20,7 +20,7 @@ argo-cd:
       enabled: true
       ingressClassName: nginx
       hosts:
-        - argocd.local
+        - 192.168.1.59.102.nip.io
       paths:
         - /
 
