@@ -1,0 +1,58 @@
+version: '3'
+
+vars:
+  MINIKUBE_PROFILE_NAME: prometheus
+  MINIKUBE_MEMORY_SIZE: 4096
+  MINIKUBE_CPUS_COUNT: 2
+  KUBERNETES_VERSION: v1.24.1
+  SLEEP_TIME: 20s
+
+tasks:
+  build:
+    desc: 'Build the cluster and configure it'
+    cmds:
+      - task: minikube:start
+      - task: minikube:ingress-setup
+      - task: argocd:helm-install
+      - task: argocd:configure-ingress
+      - task: argocd:dashboard
+      - echo 'Cluster setup completed!'
+
+  minikube:start:
+    desc: 'Start minikube cluster with profile name: {{.MINIKUBE_PROFILE_NAME}}, memory size: {{.MINIKUBE_MEMORY_SIZE}}, cpus count: {{.MINIKUBE_CPUS_COUNT}}, version: {{.KUBERNETES_VERSION}}'
+    cmds:
+      - minikube start --memory={{.MINIKUBE_MEMORY_SIZE}} --cpus={{.MINIKUBE_CPUS_COUNT}} --profile='{{.MINIKUBE_PROFILE_NAME}}' --kubernetes-version={{.KUBERNETES_VERSION}}
+
+  minikube:ingress-setup:
+    desc: 'Configure ingress addon for minikube'
+    cmds:
+      - minikube addons enable ingress -p {{.MINIKUBE_PROFILE_NAME}}
+      - echo "sleep {{.SLEEP_TIME}}"
+      - sleep {{.SLEEP_TIME}}
+
+  argocd:helm-install:
+    desc: 'Install Argo CD using helm'
+    cmds:
+      - helm install argocd -n argocd charts/argo-cd/4.10.0/ --values clusters/prometheus/applications/argo-cd/values.yaml --create-namespace
+
+  argocd:configure-ingress:
+    desc: 'Create ingress for Argo CD'
+    cmds:
+      - kubectl create ingress argocd-server --class=nginx -n argocd --rule="{{.MINIKUBE_IP}}.nip.io/*=argocd-server:80"
+    vars:
+      MINIKUBE_IP:
+        sh: minikube ip -p {{.MINIKUBE_PROFILE_NAME}}
+
+
+  argocd:dashboard:
+    desc: "Argo CD Dashboard message"
+    cmds:
+      - echo 'To access ArgoCD, visit http://{{.MINIKUBE_IP}}.nip.io/'
+    vars:
+      MINIKUBE_IP:
+        sh: minikube ip -p {{.MINIKUBE_PROFILE_NAME}}
+
+  destroy:
+    desc: 'Destroy minikube cluster profile {{.MINIKUBE_PROFILE_NAME}}'
+    cmds:
+      - minikube delete -p {{.MINIKUBE_PROFILE_NAME}}
