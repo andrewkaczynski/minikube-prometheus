@@ -16,13 +16,6 @@ argo-cd:
   server:
     extraArgs:
       - --insecure
-    ingress:
-      enabled: true
-      ingressClassName: nginx
-      hosts:
-        - 192.168.59.102.nip.io
-      paths:
-        - /
 
     config:
 
