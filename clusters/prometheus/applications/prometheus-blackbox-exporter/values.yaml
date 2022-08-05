@@ -1,0 +1,15 @@
+prometheus-blackbox-exporter:
+  pspEnable: false
+
+  config:
+    modules:
+      http_2xx_onet_pl:
+        prober: http
+        timeout: 5s
+        http:
+          valid_status_codes: 2xx
+          method: "GET"
+          fail_if_ssl: false
+          fail_if_no_ssl: true
+          tls_config:
+            insecure_skip_verify: true

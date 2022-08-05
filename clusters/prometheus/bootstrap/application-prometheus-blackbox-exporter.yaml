@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-blackbox-exporter
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/andrewkaczynski/minikube-prometheus.git
+    targetRevision: HEAD
+    path: charts/prometheus-blackbox-exporter/6.0.0
+
+    helm:
+      releaseName: prometheus
+      valueFiles:
+      - ../../../clusters/prometheus/applications/prometheus-blackbox-exporter/values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prometheus
+
+  syncPolicy:
+    automated: 
+      prune: true 
+      selfHeal: true 
+ 
