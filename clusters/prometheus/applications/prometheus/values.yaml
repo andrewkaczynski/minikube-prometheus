@@ -37,7 +37,6 @@ prometheus:
           target_label: __param_target
         - source_labels: [__param_target]
           target_label: instance
-          replacement: "$1_icmp"
         - target_label: __address__
           replacement: prometheus-blackbox-exporter:9115
     - job_name: 'prometheus-blackbox-exporter-tcp'
@@ -56,6 +55,5 @@ prometheus:
           target_label: __param_target
         - source_labels: [__param_target]
           target_label: instance
-          replacement: "$1_tcp"
         - target_label: __address__
           replacement: prometheus-blackbox-exporter:9115
