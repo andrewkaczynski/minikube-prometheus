@@ -24,4 +24,4 @@ prometheus-blackbox-exporter:
         prober: tcp
         timeout: 5s
         tcp:
-          prefered_ip_protocol: "ip4"
+          preferred_ip_protocol: "ip4"
