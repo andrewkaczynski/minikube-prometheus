@@ -10,6 +10,6 @@ prometheus-blackbox-exporter:
           valid_status_codes: 2xx
           method: "GET"
           fail_if_ssl: false
-          fail_if_no_ssl: true
+          fail_if_not_ssl: true
           tls_config:
             insecure_skip_verify: true
