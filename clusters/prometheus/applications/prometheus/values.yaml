@@ -4,6 +4,8 @@ prometheus:
 
   extraScrapeConfigs: |
     - job_name: 'prometheus-blackbox-exporter'
+      scrape_interval: 1s
+      scrape_timeout: 5s
       metrics_path: /probe
       params:
         module: [http_2xx]
@@ -20,6 +22,8 @@ prometheus:
         - target_label: __address__
           replacement: prometheus-blackbox-exporter:9115
     - job_name: 'prometheus-blackbox-exporter-icmp'
+      scrape_interval: 1s
+      scrape_timeout: 5s
       metrics_path: /probe
       params:
         module: [icmp]
@@ -36,6 +40,8 @@ prometheus:
         - target_label: __address__
           replacement: prometheus-blackbox-exporter:9115
     - job_name: 'prometheus-blackbox-exporter-tcp'
+      scrape_interval: 1s
+      scrape_timeout: 5s
       metrics_path: /probe
       params:
         module: [tcp]
