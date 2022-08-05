@@ -12,3 +12,15 @@ prometheus-blackbox-exporter:
           fail_if_not_ssl: true
           tls_config:
             insecure_skip_verify: true
+
+      icmp:
+        prober: icmp
+        timeout: 5s
+        icmp:
+          prefered_ip_protocol: "ip4"
+          source_ip_address: "127.0.0.1"
+
+      tcp:
+        prober: tcp
+        timeout: 5s
+          prefered_ip_protocol: "ip4"
