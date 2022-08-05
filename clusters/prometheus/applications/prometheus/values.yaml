@@ -3,8 +3,8 @@ prometheus:
     enabled: false
 
   extraScrapeConfigs:
-    - job_name: "prometheus-blackbox-exporter"
-      metric_path: /probe
+    - job_name: 'prometheus-blackbox-exporter'
+      metrics_path: /probe
       params:
         module: [http_2xx]
       static_configs:
@@ -19,4 +19,3 @@ prometheus:
           target_label: instance
         - target_label: __address__
           replacement: prometheus-blackbox-exporter:9115
-
