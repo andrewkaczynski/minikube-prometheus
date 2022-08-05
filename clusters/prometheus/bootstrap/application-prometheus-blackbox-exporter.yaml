@@ -13,7 +13,7 @@ spec:
     path: charts/prometheus-blackbox-exporter/6.0.0
 
     helm:
-      releaseName: prometheus
+      releaseName: prometheus-blackbox-exporter
       valueFiles:
       - ../../../clusters/prometheus/applications/prometheus-blackbox-exporter/values.yaml
 
