@@ -17,7 +17,7 @@ prometheus-blackbox-exporter:
         prober: icmp
         timeout: 5s
         icmp:
-          prefered_ip_protocol: "ip4"
+          preferred_ip_protocol: "ip4"
           source_ip_address: "127.0.0.1"
 
       tcp:
