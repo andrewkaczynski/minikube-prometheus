@@ -1,4 +1,7 @@
 grafana:
+  adminUser: admin
+  adminPassword: grafana
+
   datasources:
     datasources.yaml:
       apiVersion: 1
